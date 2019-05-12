@@ -16,6 +16,37 @@ class MyApp extends StatelessWidget {
       dispose: (_, CounterBloc bloc) => bloc.dispose(),
       child: MaterialApp(
         home: Scaffold(
+          drawer: Drawer(
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.timer),
+                  title: Text('Counter'),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
+                ListTile(
+                  leading: Icon(Icons.library_books),
+                  title: Text('Todos'),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
+                ListTile(
+                  leading: Icon(Icons.rss_feed),
+                  title: Text('News'),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
+                ListTile(
+                  leading: Icon(Icons.camera_alt),
+                  title: Text('Camera'),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
+                ListTile(
+                  leading: Icon(Icons.location_on),
+                  title: Text('Maps'),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
+              ],
+            ),
+          ),
           appBar: AppBar(
             title: Text('Flutter Provider'),
           ),
