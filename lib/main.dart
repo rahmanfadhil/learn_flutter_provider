@@ -14,11 +14,13 @@ class MyApp extends StatelessWidget {
     return Provider(
       builder: (_) => CounterBloc(),
       dispose: (_, CounterBloc bloc) => bloc.dispose(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter Provider'),
+      child: MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Flutter Provider'),
+          ),
+          body: CounterManager(),
         ),
-        body: CounterManager(),
       ),
     );
   }
