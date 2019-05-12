@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:learn_flutter_provider/blocs/counter_bloc.dart';
+import 'package:learn_flutter_provider/counter_manager.dart';
 
 void main() {
   runApp(MyApp());
@@ -7,11 +11,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter Provider'),
+    return Provider(
+      builder: (_) => CounterBloc(),
+      dispose: (_, CounterBloc bloc) => bloc.dispose(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter Provider'),
+        ),
+        body: CounterManager(),
       ),
-      body: Text('Flutter Provider'),
     );
   }
 }
