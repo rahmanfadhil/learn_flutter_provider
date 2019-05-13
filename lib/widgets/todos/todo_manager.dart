@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter_provider/widgets/todos/todo_delete_dialog.dart';
 import 'package:learn_flutter_provider/widgets/todos/todo_edit_dialog.dart';
 
 import 'package:provider/provider.dart';
@@ -23,21 +24,7 @@ class TodoManager extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Delete this todo?'),
-          content: Text('This action cannot be undone!'),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Discard'),
-              textColor: Colors.grey,
-              onPressed: () => Navigator.pop(context),
-            ),
-            FlatButton(
-              child: Text('Delete'),
-              onPressed: () => todosBloc.deleteTodo(index),
-            ),
-          ],
-        );
+        return TodoDeleteDialog(todosBloc, index);
       },
     );
   }
@@ -63,11 +50,13 @@ class TodoManager extends StatelessWidget {
                   children: <Widget>[
                     IconButton(
                       icon: Icon(Icons.edit),
+                      color: Colors.green,
                       onPressed: () =>
                           _showEditTodoDialog(context, todosBloc, index),
                     ),
                     IconButton(
                       icon: Icon(Icons.delete),
+                      color: Colors.red,
                       onPressed: () =>
                           _showDeleteTodoDialog(context, todosBloc, index),
                     )
