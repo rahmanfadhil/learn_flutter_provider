@@ -10,7 +10,7 @@ class CounterManager extends StatelessWidget {
 
     return StreamBuilder(
       stream: counterBloc.counterStream,
-      initialData: 0,
+      initialData: counterBloc.defaultValue,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
         return Column(
           children: <Widget>[

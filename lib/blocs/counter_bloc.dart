@@ -4,8 +4,9 @@ enum CounterEvent { increment, decrement }
 
 class CounterBloc {
   int _counter = 0;
+  int get defaultValue => _counter;
 
-  final _counterStateController = StreamController<int>();
+  final _counterStateController = StreamController<int>.broadcast();
   StreamSink<int> get _counterSink => _counterStateController.sink;
   Stream<int> get counterStream => _counterStateController.stream;
 

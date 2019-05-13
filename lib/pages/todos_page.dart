@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:learn_flutter_provider/widgets/shared/main_drawer.dart';
-import 'package:learn_flutter_provider/widgets/counter/counter_manager.dart';
+import 'package:learn_flutter_provider/widgets/todos/todo_manager.dart';
 
 class TodosPage extends StatelessWidget {
   @override
@@ -11,7 +11,7 @@ class TodosPage extends StatelessWidget {
         title: Text('Todos'),
       ),
       drawer: MainDrawer(),
-      body: CounterManager(),
+      body: TodoManager(),
     );
   }
 }
