@@ -1,34 +1,11 @@
-import 'dart:async';
+import 'package:flutter/foundation.dart';
 
-enum CounterEvent { increment, decrement }
-
-class CounterBloc {
+class CounterBloc extends ChangeNotifier {
   int _counter = 0;
-  int get defaultValue => _counter;
+  int get counter => _counter;
 
-  final _counterStateController = StreamController<int>.broadcast();
-  StreamSink<int> get _counterSink => _counterStateController.sink;
-  Stream<int> get counterStream => _counterStateController.stream;
-
-  final _counterEventController = StreamController<CounterEvent>();
-  StreamSink<CounterEvent> get counterEventSink => _counterEventController.sink;
-
-  CounterBloc() {
-    _counterEventController.stream.listen(_mapEventToState);
-  }
-
-  void _mapEventToState(CounterEvent event) {
-    if (CounterEvent.increment == event) {
-      _counter++;
-    } else if (CounterEvent.decrement == event) {
-      _counter--;
-    }
-
-    _counterSink.add(_counter);
-  }
-
-  void dispose() {
-    _counterStateController.close();
-    _counterEventController.close();
+  set counter(int value) {
+    _counter = value;
+    notifyListeners();
   }
 }

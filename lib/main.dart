@@ -16,8 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<TodosBloc>.value(value: TodosBloc()),
-        Provider<CounterBloc>.value(value: CounterBloc()),
+        ChangeNotifierProvider<TodosBloc>.value(
+          notifier: TodosBloc(),
+        ),
+        ChangeNotifierProvider<CounterBloc>.value(
+          notifier: CounterBloc(),
+        ),
       ],
       child: MaterialApp(
         routes: {

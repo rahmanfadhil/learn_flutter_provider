@@ -8,26 +8,18 @@ class CounterManager extends StatelessWidget {
   Widget build(BuildContext context) {
     final CounterBloc counterBloc = Provider.of<CounterBloc>(context);
 
-    return StreamBuilder(
-      stream: counterBloc.counterStream,
-      initialData: counterBloc.defaultValue,
-      builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-        return Column(
-          children: <Widget>[
-            Text(snapshot.data.toString()),
-            RaisedButton(
-              child: Text('Increment'),
-              onPressed: () =>
-                  counterBloc.counterEventSink.add(CounterEvent.increment),
-            ),
-            RaisedButton(
-              child: Text('Decrement'),
-              onPressed: () =>
-                  counterBloc.counterEventSink.add(CounterEvent.decrement),
-            )
-          ],
-        );
-      },
+    return Column(
+      children: <Widget>[
+        Text(counterBloc.counter.toString()),
+        RaisedButton(
+          child: Text('Increment'),
+          onPressed: () => counterBloc.counter++,
+        ),
+        RaisedButton(
+          child: Text('Decrease'),
+          onPressed: () => counterBloc.counter--,
+        )
+      ],
     );
   }
 }
