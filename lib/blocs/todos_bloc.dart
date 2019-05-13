@@ -18,4 +18,14 @@ class TodosBloc extends ChangeNotifier {
     _todos.add(Todo(title: title));
     notifyListeners();
   }
+
+  updateTodo(int id, String title) {
+    _todos[id] = Todo(title: title);
+    notifyListeners();
+  }
+
+  deleteTodo(int id) {
+    _todos.removeAt(id);
+    notifyListeners();
+  }
 }
