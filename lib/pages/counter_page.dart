@@ -19,7 +19,13 @@ class CounterPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(counterBloc.counter.toString()),
+            Container(
+              margin: EdgeInsets.only(bottom: 20.0),
+              child: Text(
+                counterBloc.counter.toString(),
+                style: TextStyle(fontSize: 50.0),
+              ),
+            ),
             RaisedButton(
               child: Text('Increase'),
               onPressed: () => counterBloc.counter++,
