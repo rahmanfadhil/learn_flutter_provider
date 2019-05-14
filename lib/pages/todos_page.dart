@@ -30,9 +30,9 @@ class TodosPage extends StatelessWidget {
     );
   }
 
-  void _showDeleteTodoDialog(
+  Future<bool> _showDeleteTodoDialog(
       BuildContext context, TodosBloc todosBloc, int index) {
-    showDialog(
+    return showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return TodoDeleteDialog(todosBloc, index);
@@ -60,34 +60,45 @@ class TodosPage extends StatelessWidget {
         ],
       ),
       drawer: MainDrawer(),
-      body: ListView.builder(
+      body: ListView.separated(
         itemCount: todosBloc.todos.length,
+        separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
           Todo todo = todosBloc.todos[index];
 
-          return ListTile(
-            title: Text(todo.title),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  color: Colors.green,
-                  onPressed: () =>
-                      _showEditTodoDialog(context, todosBloc, index),
-                ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  color: Colors.red,
-                  onPressed: () =>
-                      _showDeleteTodoDialog(context, todosBloc, index),
-                ),
-                IconButton(
-                  icon: Icon(todo.important ? Icons.star : Icons.star_border),
-                  color: Colors.orange,
-                  onPressed: () => todosBloc.makeFavourite(index),
-                )
-              ],
+          return Dismissible(
+            direction: DismissDirection.startToEnd,
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+            ),
+            key: Key(todo.id),
+            confirmDismiss: (DismissDirection direction) {
+              return _showDeleteTodoDialog(context, todosBloc, index);
+            },
+            child: ListTile(
+              title: Text(todo.title),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    color: Colors.green,
+                    onPressed: () =>
+                        _showEditTodoDialog(context, todosBloc, index),
+                  ),
+                  IconButton(
+                    icon: Icon(todo.important ? Icons.star : Icons.star_border),
+                    color: Colors.orange,
+                    onPressed: () => todosBloc.makeFavourite(index),
+                  )
+                ],
+              ),
             ),
           );
         },

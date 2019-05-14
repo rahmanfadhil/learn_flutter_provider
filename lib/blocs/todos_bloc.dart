@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'package:uuid/uuid.dart';
 
 class Todo {
+  final String id;
   final String title;
   final bool important;
 
   Todo({
+    @required this.id,
     @required this.title,
     this.important = false,
   });
@@ -28,6 +31,7 @@ class TodosBloc extends ChangeNotifier {
   void makeFavourite(int index) {
     Todo currentTodo = _todos[index];
     _todos[index] = Todo(
+      id: Uuid().v4(),
       title: currentTodo.title,
       important: !currentTodo.important,
     );
@@ -35,12 +39,18 @@ class TodosBloc extends ChangeNotifier {
   }
 
   void createTodo(String title) {
-    _todos.add(Todo(title: title));
+    _todos.add(Todo(
+      id: Uuid().v4(),
+      title: title,
+    ));
     notifyListeners();
   }
 
   void updateTodo(int id, String title) {
-    _todos[id] = Todo(title: title);
+    _todos[id] = Todo(
+      id: Uuid().v4(),
+      title: title,
+    );
     notifyListeners();
   }
 

@@ -16,13 +16,13 @@ class TodoDeleteDialog extends StatelessWidget {
         FlatButton(
           child: Text('Discard'),
           textColor: Colors.grey,
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context, false),
         ),
         FlatButton(
           child: Text('Delete'),
           onPressed: () {
             todosBloc.deleteTodo(index);
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
         ),
       ],
