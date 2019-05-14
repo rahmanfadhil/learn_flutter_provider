@@ -49,6 +49,11 @@ class TodosPage extends StatelessWidget {
         title: Text('Todos'),
         actions: <Widget>[
           IconButton(
+            icon:
+                Icon(todosBloc.onlyImportant ? Icons.star : Icons.star_border),
+            onPressed: () => todosBloc.toggleImportant(),
+          ),
+          IconButton(
             icon: Icon(Icons.add),
             onPressed: () => _showAddTodoDialog(context, todosBloc),
           )
@@ -58,8 +63,10 @@ class TodosPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: todosBloc.todos.length,
         itemBuilder: (BuildContext context, int index) {
+          Todo todo = todosBloc.todos[index];
+
           return ListTile(
-            title: Text(todosBloc.todos[index].title),
+            title: Text(todo.title),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -74,6 +81,11 @@ class TodosPage extends StatelessWidget {
                   color: Colors.red,
                   onPressed: () =>
                       _showDeleteTodoDialog(context, todosBloc, index),
+                ),
+                IconButton(
+                  icon: Icon(todo.important ? Icons.star : Icons.star_border),
+                  color: Colors.orange,
+                  onPressed: () => todosBloc.makeFavourite(index),
                 )
               ],
             ),

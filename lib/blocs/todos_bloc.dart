@@ -12,19 +12,39 @@ class Todo {
 
 class TodosBloc extends ChangeNotifier {
   List<Todo> _todos = [];
-  List<Todo> get todos => _todos;
+  bool _onlyImportant = false;
 
-  createTodo(String title) {
+  get onlyImportant => _onlyImportant;
+
+  List<Todo> get todos => _onlyImportant
+      ? List.unmodifiable(_todos.where((todo) => todo.important))
+      : List.unmodifiable(_todos);
+
+  void toggleImportant() {
+    _onlyImportant = !_onlyImportant;
+    notifyListeners();
+  }
+
+  void makeFavourite(int index) {
+    Todo currentTodo = _todos[index];
+    _todos[index] = Todo(
+      title: currentTodo.title,
+      important: !currentTodo.important,
+    );
+    notifyListeners();
+  }
+
+  void createTodo(String title) {
     _todos.add(Todo(title: title));
     notifyListeners();
   }
 
-  updateTodo(int id, String title) {
+  void updateTodo(int id, String title) {
     _todos[id] = Todo(title: title);
     notifyListeners();
   }
 
-  deleteTodo(int id) {
+  void deleteTodo(int id) {
     _todos.removeAt(id);
     notifyListeners();
   }
