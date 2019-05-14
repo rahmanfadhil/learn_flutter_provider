@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter_provider/widgets/todos/todo_create_dialog.dart';
+import 'package:provider/provider.dart';
 
 import 'package:learn_flutter_provider/widgets/shared/main_drawer.dart';
 import 'package:learn_flutter_provider/widgets/todos/todo_delete_dialog.dart';
 import 'package:learn_flutter_provider/widgets/todos/todo_edit_dialog.dart';
 import 'package:learn_flutter_provider/blocs/todos_bloc.dart';
-import 'package:provider/provider.dart';
 
 class TodosPage extends StatelessWidget {
+  void _showAddTodoDialog(BuildContext context, TodosBloc todosBloc) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return TodoCreateDialog(todosBloc);
+      },
+    );
+  }
+
   void _showEditTodoDialog(
     BuildContext context,
     TodosBloc todosBloc,
@@ -40,7 +50,7 @@ class TodosPage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => todosBloc.createTodo('Hello world'),
+            onPressed: () => _showAddTodoDialog(context, todosBloc),
           )
         ],
       ),
